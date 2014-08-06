@@ -8,7 +8,8 @@
 message="** TIME OUT **"	#text in the alert
 color="red"					#color of text
 showDuring="10"				#seconds showing alert message
-
+positionX="middle top bottom"
+positionY="left right center"
 
 # test osd_cat 
 if [ ! -e /usr/bin/osd_cat  ]; then 
@@ -23,15 +24,13 @@ function waiter(){
 
 	echo "timer in $1 seconds"
 	sleep $1
-	echo "$message" | osd_cat -p middle -A center -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p middle -A left -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p middle -A right -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p top -A center -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p top -A left -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p top -A right -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p bottom -A center -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p bottom -A left -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
-	echo "$message" | osd_cat -p bottom -A right -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
+
+	for i in $positionX ; do
+		for j in $positionY ; do
+			echo "$message" | osd_cat -p $i -A $j -c $color --font=-*-*-*-*-*-*-*-290-*-*-*-*-iso8859-* -O 5 -d $showDuring &
+		done
+	done
+	
 	eject 
 	sleep 60
 	eject -t
