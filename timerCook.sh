@@ -72,6 +72,19 @@ function alarmInHours(){
 	waiter $secondsTotal
 }
 
+function showHelp(){
+
+echo " "
+	echo " Create a countdown in seconds or in minutes"
+	echo " 	or even at determined hour "
+	echo " Usage: "
+    echo "   $0 [options] <Time> "
+	echo " [options]"
+    echo " 	 at H M 	- To set timer at some H (hours) M (minutes)"
+	echo " 	 -s SEC 	- To timer in some SEC seconds"
+	echo " 	 -m MIN 	- To timer in some MIN minutes"
+	echo " 	 -h HRS 	- To timer in some HRS hours"
+}
 
 ############# MAIN ######################
 
@@ -100,17 +113,14 @@ if [ $# -gt 1 ]; then
 		else
 			echo "Error: Param Number error"
 		fi
+    elif [[ $1 = "--help"  ]]; then
+        showHelp
 	else
-		echo " 'Agua Quente' Error: incorrect options "
+		echo " Error: incorrect options "
+        echo " see help option: $0 --help "
+        exit
 	fi
 else
-	echo " "
-	echo " Agua Quente Is a bash function to create a countdown in seconds or in minutes"
-	echo " 	or even at determined hour "
-	echo " Usage: "
-	echo "   $ aguaquente [options] <Time> "
-	echo " [options]"
-	echo " 	 -s SEC 	- To timer in some SEC seconds"
-	echo " 	 -m MIN 	- To timer in some MIN minutes"
-	echo " 	 at HOU MIN 	- To timer at the HOU MIN specified"
+   showHelp
+   exit
 fi
