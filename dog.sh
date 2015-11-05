@@ -22,6 +22,7 @@ IP=""
         then
                 if [ "$IP" != "$LAAST" ]; then
                 xmessage -center -print "break-in-warning ACESSO SSH IDENTIFICADO IP: $IP MAQUINA: $MACHINE ID: $ID" &
+                echo "SSH possible break in"
                 LAAST=$IP
                 ID=$(( $ID + 1 ))
                 fi
@@ -33,6 +34,7 @@ IP=""
                   if [ ! -e /tmp/ssh_lock_show ];then
                   touch /tmp/ssh_lock_show
                   xmessage -center -print "TENTATIVA DE ACESSO SSH IDENTIFICADO Hora: [ $SSHDACK ]" &
+                  echo "SSH access attempt"
                   LAST=$SSHDACK
                   sleep 5
                   /bin/rm /tmp/ssh_lock_show
